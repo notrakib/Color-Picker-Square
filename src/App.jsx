@@ -3,7 +3,7 @@ import { ChangeEvent, useCallback, useEffect, useMemo, useRef, useState } from "
 // @ts-ignore
 import { kernelFunction } from "./kernel";
 
-const GPU = (window as any).GPU;
+const GPU = (window).GPU;
 
 function App() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -20,7 +20,7 @@ function App() {
       .setOutput([canvasRef.current.width * canvasRef.current.height * 4]);
 
     const ctx = canvasRef.current.getContext("2d");
-    const output = kernel(canvasRef.current.width, canvasRef.current.height, hue) as any[];
+    const output = kernel(canvasRef.current.width, canvasRef.current.height, hue);
 
     const data = Uint8ClampedArray.from(output);
 
@@ -33,7 +33,7 @@ function App() {
     ctx?.putImageData(imageData, 0, 0);
   }, [hue, canvasRef, gpu]);
 
-  const updateHue = useCallback((ev: ChangeEvent<HTMLInputElement>) => {
+  const updateHue = useCallback((ev) => {
     setHue(parseFloat(ev.target.value));
   }, [setHue]);
 
